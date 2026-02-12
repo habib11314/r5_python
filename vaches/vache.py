@@ -55,9 +55,14 @@ class Vache:
     def ruminer(self)->None:
         if(self.panse<=0):
             raise InvalidVacheException("la panse de la vache est vide")
+        panse_avant = self.panse
         gain= self.RENDEMENT_RUMINATION * self.panse
         self.poids+=gain
         self.panse=0.0
+        self._calculer_lait(panse_avant) 
+        self._stocker_lait(self.lait_total_produit) 
+        self._post_rumination(panse_avant)
+
 
     def vieillir (self)->None:
         if(self.age >= self.AGE_MAX):
@@ -74,6 +79,6 @@ class Vache:
         pass
     def _post_rumination(self)->None:
         pass
-
+        
 
 
