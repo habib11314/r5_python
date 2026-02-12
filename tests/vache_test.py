@@ -10,7 +10,7 @@ from vaches.vache import Vache
 
 def test_should_create_vache_given_valid_state():
     # Arrange
-    vache = Vache(petitNom="Marguerite", poids=450.0, age=5)
+    vache = Vache(petitNom="Marguerite", poids=450.0)
 
     # Act
     poids = vache.poids
@@ -23,21 +23,16 @@ def test_should_create_vache_given_valid_state():
 def test_should_raise_invalid_vache_exception_given_empty_petit_nom(petitNom):
     # Arrange / Act / Assert
     with pytest.raises(InvalidVacheException):
-        Vache(petitNom=petitNom, poids=450.0, age=5)
+        Vache(petitNom=petitNom, poids=450.0)
 
 
-@pytest.mark.parametrize("age", [-1, 26])
-def test_should_raise_invalid_vache_exception_given_invalid_age(age):
-    # Arrange / Act / Assert
-    with pytest.raises(InvalidVacheException):
-        Vache(petitNom="Marguerite", poids=450.0, age=age)
 
 
 @pytest.mark.parametrize("poids", [-1.0])
 def test_should_raise_invalid_vache_exception_given_negative_poids(poids):
     # Arrange / Act / Assert
     with pytest.raises(InvalidVacheException):
-        Vache(petitNom="Marguerite", poids=poids, age=5)
+        Vache(petitNom="Marguerite", poids=poids)
 
 
 # -------------------------
@@ -46,7 +41,7 @@ def test_should_raise_invalid_vache_exception_given_negative_poids(poids):
 
 def test_should_increase_panse_given_positive_quantity_when_brouter():
     # Arrange
-    vache = Vache(petitNom="Marguerite", poids=450.0, age=5)
+    vache = Vache(petitNom="Marguerite", poids=450.0)
     vache.brouter(10.0)  # panse initiale = 10
 
     # Act
@@ -59,7 +54,7 @@ def test_should_increase_panse_given_positive_quantity_when_brouter():
 @pytest.mark.parametrize("quantite", [0.0, -1.0])
 def test_should_raise_invalid_vache_exception_given_non_positive_quantity_when_brouter(quantite):
     # Arrange
-    vache = Vache(petitNom="Marguerite", poids=450.0, age=5)
+    vache = Vache(petitNom="Marguerite", poids=450.0)
 
     # Act / Assert
     with pytest.raises(InvalidVacheException):
@@ -68,7 +63,7 @@ def test_should_raise_invalid_vache_exception_given_non_positive_quantity_when_b
 
 def test_should_raise_invalid_vache_exception_given_typed_food_when_brouter_on_vache():
     # Arrange
-    vache = Vache(petitNom="Marguerite", poids=450.0, age=5)
+    vache = Vache(petitNom="Marguerite", poids=450.0)
     vache.brouter(10.0)
 
     # Act / Assert
@@ -78,7 +73,7 @@ def test_should_raise_invalid_vache_exception_given_typed_food_when_brouter_on_v
 
 def test_should_allow_brouter_given_quantity_that_reaches_panse_max_exactly():
     # Arrange
-    vache = Vache(petitNom="Marguerite", poids=450.0, age=5)
+    vache = Vache(petitNom="Marguerite", poids=450.0)
     vache.brouter(Vache.PANSE_MAX - 5.0)
 
     # Act
@@ -90,7 +85,7 @@ def test_should_allow_brouter_given_quantity_that_reaches_panse_max_exactly():
 
 def test_should_raise_invalid_vache_exception_given_quantity_that_exceeds_panse_max_when_brouter():
     # Arrange
-    vache = Vache(petitNom="Marguerite", poids=450.0, age=5)
+    vache = Vache(petitNom="Marguerite", poids=450.0)
     vache.brouter(Vache.PANSE_MAX - 5.0)
 
     # Act / Assert
@@ -108,7 +103,7 @@ def test_should_raise_invalid_vache_exception_given_quantity_that_exceeds_panse_
 )
 def test_should_raise_invalid_vache_exception_given_panse_overflow_cases_when_brouter(panse_initiale, quantite):
     # Arrange
-    vache = Vache(petitNom="Marguerite", poids=450.0, age=5)
+    vache = Vache(petitNom="Marguerite", poids=450.0)
     vache.brouter(panse_initiale)
 
     # Act / Assert
@@ -122,7 +117,7 @@ def test_should_raise_invalid_vache_exception_given_panse_overflow_cases_when_br
 
 def test_should_empty_panse_given_positive_panse_when_ruminer():
     # Arrange
-    vache = Vache(petitNom="Marguerite", poids=450.0, age=5)
+    vache = Vache(petitNom="Marguerite", poids=450.0)
     vache.brouter(10.0)
 
     # Act
@@ -134,7 +129,7 @@ def test_should_empty_panse_given_positive_panse_when_ruminer():
 
 def test_should_increase_poids_given_positive_panse_when_ruminer():
     # Arrange
-    vache = Vache(petitNom="Marguerite", poids=450.0, age=5)
+    vache = Vache(petitNom="Marguerite", poids=450.0)
     vache.brouter(20.0)
 
     # Act
@@ -146,7 +141,7 @@ def test_should_increase_poids_given_positive_panse_when_ruminer():
 
 def test_should_raise_invalid_vache_exception_given_empty_panse_when_ruminer():
     # Arrange
-    vache = Vache(petitNom="Marguerite", poids=450.0, age=5)
+    vache = Vache(petitNom="Marguerite", poids=450.0)
 
     # Act / Assert
     with pytest.raises(InvalidVacheException):
@@ -159,10 +154,14 @@ def test_should_raise_invalid_vache_exception_given_empty_panse_when_ruminer():
 
 def test_should_increase_age_by_one_given_age_below_age_max_when_vieillir():
     # Arrange
-    vache = Vache(petitNom="Marguerite", poids=450.0, age=5)
+    vache = Vache(petitNom="Marguerite", poids=450.0)
+
+    #helper_age() #vache vieillit correctement jusqu'à l'age max
+    helper_age_vieillir_when_age_below(vache, age_cible=5) #vache vieillit correctement jusqu'à l'age 6
 
     # Act
     vache.vieillir()
+    
 
     # Assert (1 assertion métier)
     assert vache.age == 6
@@ -170,8 +169,20 @@ def test_should_increase_age_by_one_given_age_below_age_max_when_vieillir():
 
 def test_should_raise_invalid_vache_exception_given_age_max_when_vieillir():
     # Arrange
-    vache = Vache(petitNom="Marguerite", poids=450.0, age=Vache.AGE_MAX)
-
+    vache = Vache(petitNom="Marguerite", poids=450.0)
+    #helper_age() #vache vieillit correctement jusqu'à l'age max
+    helper_age(vache)
     # Act / Assert
     with pytest.raises(InvalidVacheException):
+        vache.vieillir()
+    
+
+def helper_age(vache: Vache):
+    while vache.age < Vache.AGE_MAX:
+        vache.vieillir()
+    return vache.age
+#help faire un traitement utilitaire dans a classe test methode ne commencant pas par test 
+
+def helper_age_vieillir_when_age_below(vache: Vache, age_cible: int):
+     while vache.age < age_cible:
         vache.vieillir()
